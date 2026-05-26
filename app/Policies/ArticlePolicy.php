@@ -1,0 +1,28 @@
+<?php
+
+namespace App\Policies;
+
+use App\Models\User;
+use App\Models\Article;
+
+class ArticlePolicy
+{
+    public function update(
+        User $user,
+        Article $article
+    ): bool {
+
+        return
+            $user->role === 'admin' ||
+            $user->id === $article->user_id;
+    }
+
+    public function delete(
+        User $user,
+        Article $article
+    ): bool {
+
+        return
+            $user->role === 'admin';
+    }
+}
