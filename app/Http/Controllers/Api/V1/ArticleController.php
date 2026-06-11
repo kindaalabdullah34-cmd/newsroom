@@ -7,6 +7,9 @@ use Illuminate\Http\JsonResponse;
 use App\Services\ArticleService;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use App\Mail\ArticlePublishedMail;
+use App\Jobs\NotifySubscribersJob;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Resources\V1\ArticleResource;
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
@@ -51,21 +54,32 @@ class ArticleController extends Controller
 }
 
    public function store(StoreArticleRequest $request): JsonResponse
-   {
+{
     $data = $request->validated();
 
-     $user = Auth::user();
+    $user = Auth::user();
 
     $data['user_id'] = $user->id;
 
     $article = $this->articleService
         ->create($data);
 
+    if ($article->status === 'published') {
+
+        Mail::queue(
+            new ArticlePublishedMail($article)
+        );
+
+        NotifySubscribersJob::dispatch(
+            $article
+        );
+    }
+
     return response()->json([
         'message' => 'Article created successfully',
         'data' => new ArticleResource($article)
     ], 201);
-   }
+}
 
 public function update(
     UpdateArticleRequest $request,

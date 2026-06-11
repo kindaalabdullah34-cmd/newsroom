@@ -30,8 +30,31 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+            'role' => 'reader',
+
         ];
     }
+
+    public function admin(): static
+{
+    return $this->state(fn () => [
+        'role' => 'admin',
+    ]);
+}
+
+public function writer(): static
+{
+    return $this->state(fn () => [
+        'role' => 'writer',
+    ]);
+}
+
+public function reader(): static
+{
+    return $this->state(fn () => [
+        'role' => 'reader',
+    ]);
+}
 
     /**
      * Indicate that the model's email address should be unverified.

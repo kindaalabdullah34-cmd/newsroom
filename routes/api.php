@@ -8,6 +8,9 @@ use App\Http\Controllers\Api\V1\ArticleController as V1ArticleController;
 
 use App\Http\Controllers\Api\V2\ArticleController as V2ArticleController;
 
+use App\Http\Controllers\Api\V1\CommentController;
+
+use App\Http\Controllers\Api\V1\AttachmentController;
 /*
 |--------------------------------------------------------------------------
 | PUBLIC ROUTES
@@ -56,6 +59,17 @@ Route::prefix('v1')
         'articles/{article}',
         [V1ArticleController::class, 'destroy']
     )->middleware('role:admin');
+
+    Route::post(
+    'articles/{article}/comments',
+    [CommentController::class, 'store']
+    );
+
+    Route::post(
+    'articles/{article}/attachments',
+    [AttachmentController::class, 'store']
+    )->middleware('role:admin,writer');
+
 });
 /*
 |--------------------------------------------------------------------------

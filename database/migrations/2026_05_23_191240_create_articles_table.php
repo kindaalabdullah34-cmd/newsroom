@@ -13,17 +13,25 @@ return new class extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
+
             $table->foreignId('user_id')
-              ->constrained()
-              ->cascadeOnDelete();
+                ->constrained()
+                ->cascadeOnDelete();
+
             $table->string('title');
+
             $table->longText('content');
+
             $table->enum('status', [
-              'draft',
-              'published',
-              'archived'
+                'draft',
+                'published',
+                'archived'
             ])->default('draft');
+
             $table->timestamp('published_at')->nullable();
+
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }
@@ -35,4 +43,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('articles');
     }
-};
+}; 
