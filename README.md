@@ -1,230 +1,177 @@
 # NewsRoom API - Advanced Laravel Capstone
- 
-## Project Overview
 
-NewsRoom is an advanced Laravel 11 backend application developed as a capstone project for the Advanced Backend Track 2026.
+NewsRoom is an advanced Laravel 11 REST API developed as a capstone project for the Advanced Backend Track 2026.
 
-The platform provides a complete news management system where administrators, writers, and readers can interact through articles, comments, attachments, notifications, and role-based permissions.
+The platform provides a complete news management system with articles, comments, attachments, notifications, authentication, role-based authorization, API versioning, caching, queues, events, observers, scheduled tasks, and automated testing.
 
-The application follows modern Laravel architecture principles and implements multiple design patterns and advanced backend concepts including caching, queues, events, observers, API versioning, automated testing, and scheduled tasks.
+## Technologies
 
----
-
-## Technologies Used
-
-* Laravel 11
-* PHP 8.2+
-* MySQL
-* Redis
-* Laravel Horizon
-* Laravel Sanctum
-* PHPUnit
-* REST API
-
----
+- Laravel 11
+- PHP 8.2+
+- MySQL
+- Redis
+- Laravel Horizon
+- Laravel Sanctum
+- PHPUnit
+- REST API
 
 ## Features
 
 ### Authentication & Authorization
 
-* Authentication using Laravel Sanctum
-* Role-based authorization (Admin, Writer, Reader)
+- Laravel Sanctum authentication
+- Role-based authorization
+- Admin, Writer, and Reader roles
 
 ### Article Management
 
-* Create, update, view, and delete articles
-* Soft Deletes support
-* Draft and Published article states
+- Create, update, view, and delete articles
+- Draft, published, and archived states
+- Soft deletes
+- Article validation
+- Article policies
 
-### Comment System
+### Comments
 
-* Add comments to published articles
-* Notifications for article owners
+- Add comments to articles
+- Notifications for article owners
 
 ### Attachments
 
-* Upload files and attachments to articles
-* Attachment management with polymorphic relationships
+- Upload attachments to articles
+- Polymorphic relationships
 
-### API Features
+### API
 
-* API Versioning (V1 / V2)
-* Resource Responses
-* Validation Handling
-* Secure API Responses
+- API Versioning (V1 / V2)
+- API Resources
+- Validation
+- Secure API responses
+- Rate limiting
 
 ### Performance & Infrastructure
 
-* Redis Caching
-* Laravel Horizon Queues
-* Scheduled Tasks
-* Artisan Commands
+- Redis caching
+- Laravel Horizon queues
+- Scheduled tasks
+- Artisan commands
 
-### Application Architecture
+### Architecture
 
-* Repository Pattern
-* Service Layer Pattern
-* Dependency Injection
-* Observer Pattern
-* Event-Driven Architecture
+- Repository Pattern
+- Service Layer
+- Dependency Injection
+- Observer Pattern
+- Event-Driven Architecture
 
-### Testing
+## Testing
 
-* Feature Tests
-* Unit Tests
-* Mail Testing
-* Queue Testing
-* Notification Testing
-* Database Testing
-
----
-
-## Design Patterns Used
-
-* Repository Pattern
-* Service Layer Pattern
-* Dependency Injection
-* Observer Pattern
-* Event-Driven Architecture
-
----
-
-## Testing Coverage
-
-The project includes automated tests covering:
+The project includes Feature and Unit tests covering:
 
 ### Feature Tests
 
-* ArticleManagementTest
-* CommentSystemTest
-* ArticlePublishingTest
-* AttachmentUploadTest
-* ApiResponseStructureTest
+- Article Management
+- Article Publishing
+- Comment System
+- Attachment Upload
+- API Response Structure
 
 ### Unit Tests
 
-* ArticlePublishedMailTest
-* NewCommentNotificationTest
-* NotifySubscribersJobTest
+- Article Published Mail
+- New Comment Notification
+- Notify Subscribers Job
 
-Run tests using:
+Run tests with:
 
 ```bash
 php artisan test
-```
+Current test result:
+17 tests passed
+32 assertions
 
-Current Status:
-
-```text
-17 Passed Tests
-32 Assertions
-```
-
----
-
-## Setup Instructions
-
+Setup
 1. Install dependencies
-
-```bash
 composer install
-```
-
 2. Create environment file
-
-```bash
 cp .env.example .env
-```
+
+On Windows PowerShell:
+Copy-Item .env.example .env
 
 3. Generate application key
-
-```bash
 php artisan key:generate
-```
 
-4. Configure database credentials inside `.env`
+4. Configure environment
+Configure the database and Redis settings in .env.
+Example:
+DB_CONNECTION=mysql
+DB_DATABASE=newsroom
 
-5. Run migrations
+CACHE_STORE=redis
+QUEUE_CONNECTION=redis
 
-```bash
-php artisan migrate
-```
+5. Run migrations and seed the database
+php artisan migrate:fresh --seed
 
-6. Seed database
-
-```bash
-php artisan db:seed
-```
-
-7. Start application
-
-```bash
+6. Start the application
 php artisan serve
-```
 
-8. Run Horizon
+7. Start Redis
+Redis must be running for caching and queues.
 
-```bash
+8. Start Laravel Horizon
 php artisan horizon
-```
 
-9. Run Scheduler
-
-```bash
+9. Run the scheduler
 php artisan schedule:work
-```
 
----
+API Endpoints
+Authentication
+POST /api/login
 
-## API Endpoints
-
-### Version 1
-
-```http
+API V1:
 GET    /api/v1/articles
+GET    /api/v1/articles/{id}
 POST   /api/v1/articles
 PUT    /api/v1/articles/{id}
 DELETE /api/v1/articles/{id}
-```
 
-### Version 2
+POST   /api/v1/articles/{id}/comments
+POST   /api/v1/articles/{id}/attachments
 
-```http
-GET /api/v2/articles
-GET /api/v2/articles/{id}
-```
+API V2:
+GET    /api/v2/articles
+GET    /api/v2/articles/{id}
+POST   /api/v2/articles
+PUT    /api/v2/articles/{id}
+PATCH  /api/v2/articles/{id}
+DELETE /api/v2/articles/{id}
 
----
-
-## Test Accounts
-
-### Admin
-
-```text
+All protected API endpoints require authentication using Laravel Sanctum.
+Test Accounts
+Admin
 Email: admin@test.com
 Password: password
-```
 
-### Writer
-
-```text
+Writer
 Email: writer@test.com
 Password: password
+
+Scheduled Tasks
+The application includes scheduled commands for:
+articles:archive
+articles:report
+
+Future Improvements
+Docker support
+CI/CD pipeline
+Real-time notifications
+Full-text search
+WebSockets integration
+Advanced analytics dashboard
+
+Author
+Kinda Alabdullah
+Advanced Backend Track 2026
 ```
-
----
-
-## Future Improvements
-
-* Docker Support
-* CI/CD Pipeline
-* Real-Time Notifications
-* Full-Text Search
-* WebSockets Integration
-* Advanced Analytics Dashboard
-
----
-
-## Author
-
-Advanced Laravel Backend Capstone Project 2026
