@@ -27,3 +27,4 @@ interface ArticleRepositoryInterface
         Article $article
     ): bool;
 }
+ 

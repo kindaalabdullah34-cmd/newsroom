@@ -14,3 +14,4 @@ class ArticleCreated
         public Article $article
     ) {}
 }
+ 

@@ -86,3 +86,4 @@ Route::prefix('v2')
         V2ArticleController::class
     );
 });
+ 

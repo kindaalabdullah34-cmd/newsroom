@@ -18,3 +18,4 @@ class Tag extends Model
         );
     }
 }
+ 

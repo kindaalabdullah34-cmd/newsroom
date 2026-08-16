@@ -17,3 +17,4 @@ class CommentFactory extends Factory
         ];
     }
 }
+ 

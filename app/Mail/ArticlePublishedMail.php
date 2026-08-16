@@ -25,3 +25,4 @@ class ArticlePublishedMail extends Mailable
             ]);
     }
 }
+ 

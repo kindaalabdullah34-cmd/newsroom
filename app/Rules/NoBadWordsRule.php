@@ -33,3 +33,4 @@ class NoBadWordsRule implements ValidationRule
         }
     }
 }
+ 

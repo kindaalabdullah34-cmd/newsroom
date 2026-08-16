@@ -26,3 +26,4 @@ class ArticlePolicy
             $user->role === 'admin';
     }
 }
+ 

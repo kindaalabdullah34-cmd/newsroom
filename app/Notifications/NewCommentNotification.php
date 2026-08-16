@@ -39,3 +39,4 @@ class NewCommentNotification extends Notification
         ];
     }
 }
+ 

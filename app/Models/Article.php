@@ -45,3 +45,4 @@ class Article extends Model
         );
     }
 }
+ 

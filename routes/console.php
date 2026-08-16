@@ -19,3 +19,4 @@ Schedule::command(
 Schedule::command(
     'articles:report'
 )->dailyAt('20:00');
+ 
